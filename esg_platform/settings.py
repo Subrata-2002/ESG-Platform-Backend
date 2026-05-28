@@ -22,7 +22,11 @@ SECRET_KEY = os.environ.get(
 
 DEBUG = os.environ.get("DEBUG", "True") == "True"
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [
+    'esg-platform-backend-327e.onrender.com',
+    'localhost',
+    '127.0.0.1'
+]
 
 
 # Application definition
@@ -58,8 +62,10 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:5173",
     "http://127.0.0.1:3000",
+    "https://your-frontend-app.vercel.app",
+    "https://esg-platform-frontend-rouge.vercel.app"
 ]
-CORS_ALLOW_ALL_ORIGINS = DEBUG  # permissive in dev, tighten in prod
+CORS_ALLOW_ALL_ORIGINS = DEBUG  # permissive in dev, tighten in prod"https://your-frontend-app.vercel.app",
 
 ROOT_URLCONF = 'esg_platform.urls'
 
