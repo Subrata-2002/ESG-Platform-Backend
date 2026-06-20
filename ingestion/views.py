@@ -155,14 +155,20 @@ class DashboardRecordsView(APIView):
       page_size      — records per page (default 50, max 200)
     """
 
-    def get(self, request: Request) -> Response:
-        qs = NormalizedEmissionActivity.objects.select_related("tenant", "raw_log").all()
-
+    def get(self, request):
         tenant_id = request.query_params.get("tenant_id")
-        if tenant_id:
-            qs = qs.filter(tenant_id=tenant_id)
 
-        record_status = request.query_params.get("status")
+        if not tenant_id:
+            return Response(
+            {"detail": "tenant_id is required."},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+        
+        qs = NormalizedEmissionActivity.objects.select_related(
+            "tenant", "raw_log"
+        ).filter(tenant_id=tenant_id)
+
+        record_status=request.query_params.get("status")
         if record_status:
             qs = qs.filter(status=record_status)
 
